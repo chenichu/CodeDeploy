@@ -16,10 +16,16 @@ permissions:
 
 hooks:
   BeforeInstall:
-    - location: scripts/deregister_from_elb.sh
+    ## Zero Down Time Deployment using One At a Time (Mix/Match of versions)
+    # - location: scripts/deregister_from_elb.sh
+    ## Zero Down Time Deployment using Blue/Green
+    - location: scripts/deregister_from_elb_bg.sh
     - location: scripts/webserver-stop.sh
     - location: scripts/delete-old-index.sh
   AfterInstall:
     - location: scripts/sleep.sh
     - location: scripts/webserver-start.sh
-    - location: scripts/register_with_elb.sh
+    ## Zero Down Time Deployment using One At a Time (Mix/Match of versions)
+    #- location: scripts/register_with_elb.sh
+    ## Zero Down Time Deployment using Blue/Green
+    - location: scripts/register_with_elb_bg.sh
